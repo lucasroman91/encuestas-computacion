@@ -1,0 +1,8 @@
+<div class="col-12 col-xl-4 align-self-center">
+  <select class="form-control" ng-model="scc.cuatrimestre"
+      ng-options="url.nombre for url in scc.urls"
+      ng-change="scc.elegirURL();">
+    <option value="" selected disabled hidden>Elegir cuatrimestre</option></select>
+</div>
+<div ui-view class="col-12 col-xl-8 align-self-center">
+</div>

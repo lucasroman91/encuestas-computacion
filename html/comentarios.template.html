@@ -1,0 +1,142 @@
+<div>
+  <!-- Modal de comentario-->
+  <div id="cmtModal" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="cmtModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="cmtModalTitle">Comentario</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="mh-25">{{$ctrl.comentarioActual}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm ml-auto"
+            data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tabla -->
+  <div class="table-responsive">
+    <table ng-if="$ctrl.resultados.length > 0" ng-show="$ctrl.resultados.length > 0"
+        class="ng-hide table table-bordered table-sm">
+      <thead class="thead-dark">
+        <tr>
+          <th>Docente</th>
+          <th>
+            <div class="d-xl-none">GEN</div>
+            <div class="d-none d-xl-block">General</div>
+          </th>
+          <th>
+            <div class="d-xl-none">TEM</div>
+            <div class="d-none d-xl-block">Temas</div>
+          </th>
+          <th>
+            <div class="d-xl-none">TEO</div>
+            <div class="d-none d-xl-block">Teóricas</div>
+          </th>
+          <th>
+            <div class="d-xl-none">PRA</div>
+            <div class="d-none d-xl-block">Prácticas</div>
+          </th>
+          <th>
+            <div class="d-xl-none">DIF</div>
+            <div class="d-none d-xl-block">Dificultad</div>
+          </th>
+          <th>
+            <div class="d-xl-none">DIFTP</div>
+            <div class="d-none d-xl-block">Dif. TP</div>
+          </th>
+          <th>
+            <div class="d-xl-none">¿Aprobo?</div>
+            <div class="d-none d-xl-block">¿APR?</div>
+          </th>
+          <th>
+            <div class="d-xl-none">¿ACT?</div>
+            <div class="d-none d-xl-block">¿Actualizada?</div>
+          </th>
+          <th>
+            <div class="d-xl-none">CMT</div>
+            <div class="d-none d-xl-block">Comentarios</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-if="0" ng-repeat-start="item in $ctrl.resultados">
+        <!-- Fila normal, mostrando numero o texto -->
+        <tr>
+          <td class="table-info">{{ item.docente }}</td>
+          <td class="pje-{{ item.generalNum }}" title="General">
+            <div class="d-xl-none">{{ item.generalNum }}</div>
+            <div class="d-none d-xl-block">{{ item.general }}</div>
+          </td>
+          <td class="pje-{{ item.temasNum }}" title="Temas">
+            <div class="d-xl-none">{{ item.temasNum }}</div>
+            <div class="d-none d-xl-block">{{ item.temas }}</div>
+          </td>
+          <td class="pje-{{ item.teoricasNum }}" title="Teóricas">
+            <div class="d-xl-none">{{ item.teoricasNum }}</div>
+            <div class="d-none d-xl-block">{{ item.teoricas }}</div>
+          </td>
+          <td class="pje-{{ item.practicasNum }}" title="Prácticas">
+            <div class="d-xl-none">{{ item.practicasNum }}</div>
+            <div class="d-none d-xl-block">{{ item.practicas }}</div>
+          </td>
+          <td class="pje-{{ item.dificultadCursoNum }}" title="Dificultad del curso">
+            <div class="d-xl-none">{{ item.dificultadCursoNum }}</div>
+            <div class="d-none d-xl-block">{{ item.dificultadCurso }}</div>
+          </td>
+          <td class="pje-{{ item.dificultadTPNum }}" title="Dificultad del TP">
+            <div class="d-xl-none">{{ item.dificultadTPNum }}</div>
+            <div class="d-none d-xl-block">{{ item.dificultadTP }}</div>
+          </td>
+          <td class="table-info text-center" title="¿Aprobó?">
+            {{ item.aprobo }}
+          </td>
+          <td class="table-info text-center" title="¿Temas Actualizados'">
+            {{ item.temasActualizados }}
+          </td>
+          <td class="table-info text-center">
+            <div class="d-lg-none">
+              <button ng-if="item.comentarios" type="button" title="Comentario"
+                class="btn btn-sm btn-danger"
+                data-toggle="modal" data-target="#cmtModal"
+                ng-click="$ctrl.onCambioComentario({ cmt: item.comentarios });">
+                <span class="fa fa-eye"></span>
+              </button>
+            </div>
+            <div class="d-none d-lg-block">
+              <button ng-if="item.comentarios" type="button" title="Comentario"
+                class="btn btn-sm btn-danger"
+                data-toggle="modal" data-target="#cmtModal"
+                ng-click="$ctrl.onCambioComentario({ cmt: item.comentarios });">
+                Ver&nbsp;
+                <span class="fa fa-eye"></span>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <!-- Fila de sumarizados -->
+        <tr ng-if="$last || $ctrl.resultados[$index]['docente'] != $ctrl.resultados[$index + 1]['docente']">
+          <td></td>
+          <td class="table-secondary" title="Promedio general">
+            {{$ctrl.sumarizados[item.docente].general / $ctrl.sumarizados[item.docente].cant | number : 2}}</td>
+          <td class="table-secondary" title="Promedio temas">
+            {{$ctrl.sumarizados[item.docente].temas / $ctrl.sumarizados[item.docente].cant | number : 2}}</td>
+          <td class="table-secondary" title="Promedio docentes">
+            {{$ctrl.sumarizados[item.docente].teoricas / $ctrl.sumarizados[item.docente].cant | number : 2}}</td>
+          <td class="table-secondary" title="Promedio teóricas">
+            {{$ctrl.sumarizados[item.docente].practicas / $ctrl.sumarizados[item.docente].cant | number : 2}}</td>
+          <td class="table-secondary" title="Promedio prácticas">
+            {{$ctrl.sumarizados[item.docente].dificultadCurso / $ctrl.sumarizados[item.docente].cant | number : 2}}</td>
+          <td class="table-secondary" title="Promedio dificultad">
+            {{$ctrl.sumarizados[item.docente].dificultadTP / $ctrl.sumarizados[item.docente].cant | number : 2}}</td>
+          <td colspan="3">&nbsp;</td>
+        </tr>
+        <tr ng-if="0" ng-repeat-end>
+      </tbody>
+    </table>
+  </div>
+</div>

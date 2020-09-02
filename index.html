@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" ng-app="Encuestas">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <!-- Estilos de bootstrap y extra -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style type="text/css">
+      .pje-5 {background-color: #BFFCC6;}
+      .pje-4 {background-color: #DBFFD6;}
+      .pje-3 {background-color: #FFFFD1;}
+      .pje-2 {background-color: #FFCBC1;}
+      .pje-1 {background-color: #FFABAB;}
+      .pje-0 {background-color: #FFFFFF;}
+      .modal-body{
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+      }
+    </style>
+    <!-- jQuery, Popper y Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"></script>
+    <!-- FontAwesome y Papa Parse -->
+    <script src="https://kit.fontawesome.com/70d28df4e3.js" crossorigin="anonymous"></script>
+    <script src="js/papaparse.js"></script>
+    <!-- Angular general y routing -->
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-ui-router.min.js"></script>
+    <!-- Modulos -->
+    <script src="js/datosencuestas/datosencuestas.module.js"></script>
+    <script src="js/encuestas/encuestas.module.js"></script>
+    <!-- Rutas -->
+    <script src="js/routes.js"></script>
+    <!-- Otros -->
+    <script src="js/datosencuestas/procesarcsv.service.js"></script>
+    <script src="js/datosencuestas/datosencuestas.service.js"></script>
+    <script src="js/encuestas/selector.cuatrimestre.controller.js"></script>
+    <script src="js/encuestas/selector.materia.controller.js"></script>
+    <script src="js/encuestas/respuestas.controller.js"></script>
+    <script src="js/encuestas/comentarios.component.js"></script>
+    <!-- Titulo extremadamente descriptivo -->
+    <title>Encuestas</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>Encuestas</h1>
+        </div>
+      </div>
+      <div class="row" ui-view>
+      </div>
+      <div class="row" ng-controller="RespuestasController as rc">
+        <div class="col-12" >
+          <comentarios
+              resultados="rc.resultados"
+              sumarizados="rc.sumarizados"
+              comentario-actual="rc.comentarioActual"
+              on-cambio-comentario="rc.cambiarComentario(cmt);"
+            />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
