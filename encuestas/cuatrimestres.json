@@ -1,4 +1,5 @@
 [
     {"id": "20192C", "nombre": "2019 2do Cuat" , "url" : "encuestas/encuesta.csv"}
+    , {"id": "20191C", "nombre": "2019 1er Cuat" , "url" : "encuestas/encuesta-dc-2019-1erC.csv"}
     , {"id": "20182C", "nombre": "2018 2do Cuat" , "url" : "encuestas/encuesta5.csv"}
 ]
