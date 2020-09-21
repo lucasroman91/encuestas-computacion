@@ -9,10 +9,11 @@
     // Para pasar de textos a numeros de 0 a 5
     .constant('TEXTOANUM', {"excelentes": 5, "muy buenas":4, "buenas": 3 , "regulares": 2 , "malas": 1
         , "excelente": 5, "muy bueno": 4, "bueno": 3 , "regular": 2 , "malo": 1
-        , "muy dificil": 5 , "dificil": 4 , "normal": 3 , "fácil": 2 , "muy fácil": 1
+        , "muy dificil": 1 , "dificil": 2 , "normal": 3 , "fácil": 4 , "muy fácil": 5
         , "facil": 2 , "muy facil": 1, "no hay tp": 0
         , "muy interesantes": 5 , "interesantes": 3 , "poco interesantes": 2, "nada interesantes": 1
         , "no hay clases prácticas": 0 , "no hay clases teóricas": 0
+        , "difícil": 2, "muy difícil": 1
     })
     .service('ProcesarCSVService', ProcesarCSVService);
 
@@ -69,7 +70,7 @@
         // ********************
         // FUNCIONES AUXILIARES
         // ********************
-        
+
         // Saca (o intenta sacar, bah) la materia, el curso y el docente de la línea
         function obtenerMateriaCursoYDocente(linea) {
             // En general viene separado por guiones
