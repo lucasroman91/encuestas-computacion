@@ -1,6 +1,7 @@
 [
-    {"id": "20201C", "nombre": "2020 1er Cuat" , "url" : "encuestas/20201c.csv"}
-    , {"id": "20192C", "nombre": "2019 2do Cuat" , "url" : "encuestas/encuesta.csv"}
-    , {"id": "20191C", "nombre": "2019 1er Cuat" , "url" : "encuestas/encuesta-dc-2019-1erC.csv"}
-    , {"id": "20182C", "nombre": "2018 2do Cuat" , "url" : "encuestas/encuesta5.csv"}
+    {"id": "20202C", "nombre": "2020 2do Cuat" , "url" : "encuestas/20202c.csv", "formato" : "2021" }
+    , {"id": "20201C", "nombre": "2020 1er Cuat" , "url" : "encuestas/20201c.csv", "formato" : "viejo" }
+    , {"id": "20192C", "nombre": "2019 2do Cuat" , "url" : "encuestas/encuesta.csv", "formato" : "viejo" }
+    , {"id": "20191C", "nombre": "2019 1er Cuat" , "url" : "encuestas/encuesta-dc-2019-1erC.csv", "formato" : "viejo" }
+    , {"id": "20182C", "nombre": "2018 2do Cuat" , "url" : "encuestas/encuesta5.csv", "formato" : "viejo" }
 ]

@@ -6,6 +6,8 @@
     .constant('CSVINDEXS', {"curso":1,"general":2, "aprobo": 3 , "temas": 4 , "temasActualizados": 5
         , "teoricas": 6 , "practicas": 7 , "dificultadCurso": 8 , "dificultadTP": 9 , "comentarios": 10
     })
+    .constant('CSVINDEXS2021', { "comentarios": 21, "virtual": 18, "conformeeval": 20
+    })    
     // Para pasar de textos a numeros de 0 a 5
     .constant('TEXTOANUM', {"excelentes": 5, "muy buenas":4, "buenas": 3 , "regulares": 2 , "malas": 1
         , "excelente": 5, "muy bueno": 4, "bueno": 3 , "regular": 2 , "malo": 1
@@ -18,16 +20,16 @@
     .service('ProcesarCSVService', ProcesarCSVService);
 
     // DatosEncuestasService: Maneja los datos de una encuesta
-    ProcesarCSVService.$inject = ['CSVINDEXS','TEXTOANUM']
-    function ProcesarCSVService (CSVINDEXS,TEXTOANUM){
+    ProcesarCSVService.$inject = ['CSVINDEXS','TEXTOANUM','CSVINDEXS2021']
+    function ProcesarCSVService (CSVINDEXS,TEXTOANUM,CSVINDEXS2021){
         var service = this;
 
         // Procesa todas las líneas del CSV
-        service.procesarCSV = function(csvLines) {
+        service.procesarCSV = function(csvLines, formato) {
             var respuestas = {};
             // Parsear cada linea del CSV agregandola a ret
             csvLines.forEach(function(line) {
-                parsearLinea(line,respuestas);
+                parsearLinea(line,respuestas, formato);
             });
             // Ordenar todas las materias y sumarizar
             var sumarizados = {};
@@ -104,12 +106,30 @@
         }
 
         // Parsea una linea del CSV generando los datos a mostrar en el browse
-        function parsearLinea(linea, datos) {
+        function parsearLinea(linea, datos, formato) {
             if (!(CSVINDEXS['curso'] in linea)) return;
             const [materia, curso, docente] = obtenerMateriaCursoYDocente(linea);
             if (! (materia in datos)) {
                 datos[materia] = [];
             }
+
+            // Fix horrible por cambio de formato
+            var comentarios = "";
+            if (formato === "viejo") {
+                comentarios = linea[CSVINDEXS['comentarios']];
+            }
+            else if (formato === "2021") {
+                comentarios = linea[CSVINDEXS2021['comentarios']];
+                if (linea[CSVINDEXS2021['virtual']]) {
+                    comentarios += "¿Creés que la cátedra estuvo a la altura de una cursada virtual?: " + linea[CSVINDEXS2021['virtual']];
+                }
+                if (linea[CSVINDEXS2021['conformeeval']]) {
+                    comentarios += "¿Estás conforme con la forma en que el curso evaluó sus contenidos? ¿Te sentiste cómodo/a?: " + linea[CSVINDEXS2021['conformeeval']];
+                }
+                //.constant('CSVINDEXS2021', { "comentarios": 21, "virtual": 18, "conformeeval": 20
+
+            }
+
             datos[materia].push({
                 "docente": docente
                 , "curso": curso
@@ -127,7 +147,7 @@
                 , "dificultadCursoNum": TextoANum(linea[CSVINDEXS['dificultadCurso']])
                 , "dificultadTP": linea[CSVINDEXS['dificultadTP']]
                 , "dificultadTPNum": TextoANum(linea[CSVINDEXS['dificultadTP']])
-                , "comentarios": linea[CSVINDEXS['comentarios']]
+                , "comentarios": comentarios
             });
         }
 
